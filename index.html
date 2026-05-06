@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Side Questy – Toastmasters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --card: #141414;
+      --accent: #e8ff3e;
+      --accent2: #ff6b35;
+      --text: #f0ede8;
+      --muted: #555;
+      --border: #222;
+    }
+
+```
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -40%;
+  left: -20%;
+  width: 80vw;
+  height: 80vw;
+  background: radial-gradient(circle, rgba(232,255,62,0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+header {
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #0d0d0d;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 2px;
+  margin-bottom: 16px;
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+h1 span {
+  color: var(--accent);
+}
+
+.subtitle {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* CARD */
+.card {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--accent);
+}
+
+.quest-number {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 80px;
+  line-height: 1;
+  color: var(--border);
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  letter-spacing: -0.04em;
+  user-select: none;
+  transition: color 0.5s ease;
+}
+
+.quest-label {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  margin-bottom: 16px;
+}
+
+.quest-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.3rem, 4vw, 1.7rem);
+  line-height: 1.2;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.quest-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #bbb;
+  font-weight: 300;
+  position: relative;
+  z-index: 1;
+}
+
+.card.animating {
+  animation: cardFlip 0.4s ease;
+}
+
+@keyframes cardFlip {
+  0% { opacity: 1; transform: translateY(0); }
+  40% { opacity: 0; transform: translateY(-12px); }
+  60% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* BUTTON */
+.btn {
+  width: 100%;
+  background: var(--accent);
+  color: #0d0d0d;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 24px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(232,255,62,0.25);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn svg {
+  flex-shrink: 0;
+}
+
+/* progress */
+.progress {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.progress strong {
+  color: var(--text);
+}
+
+/* reset info */
+.reset-info {
+  font-size: 11px;
+  color: #333;
+  text-align: center;
+}
+
+.reset-info span {
+  color: var(--muted);
+}
+```
+
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="badge">Toastmasters</div>
+      <h1>Side<br/><span>Questy</span></h1>
+      <p class="subtitle">Twoje zadanie na dziś – wróć jutro po nowe.</p>
+    </header>
+
+```
+<div class="card" id="card">
+  <div class="quest-number" id="questNum">—</div>
+  <div class="quest-label">Twoje zadanie</div>
+  <div class="quest-title" id="questTitle">Ładowanie…</div>
+  <div class="quest-desc" id="questDesc"></div>
+</div>
+
+<div class="progress" id="progress"></div>
+
+<button class="btn" id="rerollBtn" onclick="reroll()">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+    <path d="M3 3v5h5"/>
+  </svg>
+  Nowe zadanie na dziś
+</button>
+
+<div class="reset-info" id="resetInfo"></div>
+```
+
+  </div>
+
+  <script>
+    const QUESTS = [
+      { title: "Lodołamacz kuluarowy", desc: "Przywitaj się z przynajmniej jedną osobą, której jeszcze nie znasz lub znasz najmniej." },
+      { title: "Łącznik", desc: "Przedstaw sobie dwie osoby, które Twoim zdaniem powinny się poznać." },
+      { title: "Rekrut", desc: "Zapytaj gościa o jego wrażenia i zaproś go na „aftery" lub kolejne spotkanie." },
+      { title: "Wspólny mianownik", desc: "Znajdź osobę, która ma to samo hobby co Ty (poza przemawianiem)." },
+      { title: "Wywiad", desc: "Dowiedz się od wybranej osoby, dlaczego zdecydowała się dołączyć do Toastmasters." },
+      { title: "Miejscówka", desc: "Usiądź obok osoby, obok której jeszcze nigdy nie siedziałeś." },
+      { title: "Detektyw mowy ciała", desc: "Daj komuś po spotkaniu pozytywny feedback dotyczący jego gestykulacji." },
+      { title: "Skupienie 100%", desc: "Przesłuchaj całe wystąpienie bez ani jednego spojrzenia na telefon czy zegarek." },
+      { title: "Cichy mentor", desc: "Napisz na kartce zwrotnej jedną rzecz, którą dany mówca zrobił dziś lepiej niż ostatnio." },
+      { title: "Docenienie zaplecza", desc: "Podziękuj osobie pełniącej rolę techniczną (Chronometrażysta, Gramatyk) za jej wkład." },
+      { title: "Łowca perełek", desc: "Zanotuj trzy ciekawe zwroty ze sceny i postaraj się użyć ich w rozmowie jutro." },
+      { title: "Wsparcie debiutanta", desc: "Znajdź osobę, która miała dziś swój debiut i pogratuluj jej odwagi." },
+      { title: "Partyzynt Słowa Dnia", desc: "Użyj „Słowa Dnia" przynajmniej 3 razy w rozmowach prywatnych podczas przerwy." },
+      { title: "Mistrz pauzy", desc: "Podczas rozmowy zastosuj świadomą, 2-sekundową pauzę, zanim odpowiesz na pytanie." },
+      { title: "Metaforyczny challenge", desc: "Opisz komuś swój dzień, używając przynajmniej jednej barwnej metafory." },
+      { title: "Stop wypełniaczom", desc: "Nie użyj ani jednego „yyyy" czy „eeee" podczas networkingowej rozmowy przy kawie." },
+      { title: "Aktywne słuchanie", desc: "Podczas rozmowy potakuj i utrzymuj kontakt wzrokowy, nie przerywając ani razu." },
+      { title: "Gorące Pytania", desc: "Zgłoś się jako pierwszy (lub jeden z pierwszych) do sesji Gorących Pytań." },
+      { title: "Power Pose", desc: "Wykonaj „pozę zwycięzcy" przez 30 sekund przed wejściem na salę (np. w łazience)." },
+      { title: "Pytający", desc: "Zadaj pytanie mówcy w sesji Q&A (jeśli taka jest przewidziana)." },
+      { title: "Ochotnik", desc: "Jeśli zwolni się jakaś rola w ostatniej chwili – zaproponuj swoją pomoc." },
+      { title: "Uśmiech", desc: "Utrzymuj kontakt wzrokowy i uśmiechaj się do każdego, z kim mijasz się w drzwiach." },
+      { title: "Ekspert od trików", desc: "Poproś doświadczonego klubowicza o jego sposób na opanowanie tremy." },
+      { title: "Planer", desc: "Zadeklaruj Wiceprezesowi ds. Edukacji, kiedy wygłosisz swoją kolejną mowę." },
+      { title: "Bibliotekarz", desc: "Poleć komuś jedną książkę rozwojową, która wpłynęła na Twoją komunikację." },
+      { title: "Analiza lidera", desc: "Zanotuj jeden trik Toastmastera Wieczoru, który ułatwił przejście między punktami." },
+      { title: "Lustro", desc: "Podczas rozmowy spróbuj subtelnie naśladować mowę ciała rozmówcy przez 1 minutę." },
+      { title: "Entuzjasta", desc: "Bądź osobą, która najgłośniej klaszcze po każdym wystąpieniu." },
+      { title: "Pozytywna energia", desc: "Skomplementuj dwie osoby za coś, co nie jest związane z ich mową." },
+      { title: "Last man standing", desc: "Zostań do samego końca, żeby pomóc posprzątać salę lub poustawiać krzesła." },
+      { title: "Wysoka piątka", desc: "Przybij piątkę osobie, która właśnie zeszła ze sceny." },
+      { title: "Strażnik wody", desc: "Upewnij się, że mówca ma dostęp do wody przed swoim wystąpieniem." },
+      { title: "Konstruktywny tip", desc: "Po spotkaniu przekaż jednej osobie jedną rzecz, którą może poprawić w swojej mowie." },
+      { title: "Pytanie o progres", desc: "Zapytaj kogoś, nad jakim projektem w Pathways teraz pracuje." },
+      { title: "Fan humoru", desc: "Jeśli ktoś powie żart, zareaguj na niego entuzjastycznie." },
+      { title: "Social Media Ninja", desc: "Zrób zdjęcie (za zgodą) i wspomnij o klubie w swoich relacjach." },
+      { title: "Pomocna dłoń", desc: "Pomóż Sierżantowi (SAA) w przygotowaniu lub sprzątnięciu sali." },
+      { title: "Feedback Ewaluatora", desc: "Powiedz osobie oceniającej mowę, co najbardziej podobało Ci się w jej ewaluacji." },
+      { title: "Historyk klubu", desc: "Zapytaj jednego z najstarszych stażem członków o historię Waszego klubu." },
+      { title: "Inspiracja", desc: "Podziel się z kimś w przerwie jednym cytatem, który Cię ostatnio zainspirował." },
+      { title: "Uważny obserwator", desc: "Zauważ jeden ciekawy szczegół w stroju innej osoby i skomplementuj go." },
+      { title: "Cichy kibic", desc: "Podczas mowy potakuj głową, dając mówcy sygnał, że go aktywnie słuchasz." },
+      { title: "Łowca talentów", desc: "Zapytaj gościa, czym zajmuje się zawodowo i jak to się łączy z komunikacją." },
+      { title: "Mistrz logistyki", desc: "Zaproponuj pomoc przy obsłudze stopera lub dzwonka, jeśli zajdzie potrzeba." },
+      { title: "Poszukiwacz opinii", desc: "Zapytaj osobę obok, co najbardziej podobało jej się w pierwszej części spotkania." },
+      { title: "Ambasador uśmiechu", desc: "Przez całą przerwę staraj się mieć uśmiech na twarzy." },
+      { title: "Słuchacz idealny", desc: "Nie przerywaj nikomu wypowiedzi, nawet jeśli bardzo chcesz coś dodać." },
+      { title: "Recenzent agendy", desc: "Pochwal Toastmastera Wieczoru za dobór tematu lub prowadzenie." },
+      { title: "Kolekcjoner imion", desc: "Zapamiętaj imiona przynajmniej 5 osób, których wcześniej nie znałeś." },
+      { title: "Wsparcie techniczne", desc: "Zapytaj osobę odpowiedzialną za nagrania/Zoom, czy nie potrzebuje w czymś pomocy." },
+      { title: "Menedżer czasu", desc: "Spójrz na zegarek przed przerwą i zgadnij, czy spotkanie ma opóźnienie." },
+      { title: "Innowator", desc: "Zaproponuj jedną zmianę, która mogłaby uatrakcyjnić spotkania klubu." },
+      { title: "Partner do mowy", desc: "Zaproponuj komuś, że przesłuchasz jego mowę przed następnym spotkaniem." },
+      { title: "Analiza tezy", desc: "Spróbuj wyłapać główną myśl (tezę) w każdej wygłoszonej dziś mowie." },
+      { title: "Dobry sąsiad", desc: "Zapytaj osobę siedzącą obok, jak mija jej tydzień (poza Toastmasters)." },
+      { title: "Finałowy uścisk", desc: "Po zakończeniu oficjalnej części, podziękuj organizatorom za energię." }
+    ];
+
+    const STORAGE_KEY = 'sq_quest';
+
+    function todayStr() {
+      const d = new Date();
+      return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    }
+
+    function loadQuest() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const data = JSON.parse(raw);
+          if (data.date === todayStr()) return data.index;
+        }
+      } catch(e) {}
+      return null;
+    }
+
+    function saveQuest(index) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ date: todayStr(), index }));
+    }
+
+    function pickRandom(exclude) {
+      let idx;
+      do { idx = Math.floor(Math.random() * QUESTS.length); }
+      while (idx === exclude && QUESTS.length > 1);
+      return idx;
+    }
+
+    function render(index, animate) {
+      const card = document.getElementById('card');
+      const q = QUESTS[index];
+
+      if (animate) {
+        card.classList.add('animating');
+        card.addEventListener('animationend', () => card.classList.remove('animating'), { once: true });
+      }
+
+      document.getElementById('questNum').textContent = String(index + 1).padStart(2, '0');
+      document.getElementById('questTitle').textContent = q.title;
+      document.getElementById('questDesc').textContent = q.desc;
+      document.getElementById('progress').innerHTML =
+        `Quest <strong>${index + 1}</strong> z <strong>${QUESTS.length}</strong>`;
+
+      // Reset info
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const tStr = tomorrow.toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long' });
+      document.getElementById('resetInfo').innerHTML =
+        `<span>Nowe losowanie dostępne od: ${tStr}</span>`;
+    }
+
+    let currentIndex = null;
+
+    function init() {
+      const saved = loadQuest();
+      if (saved !== null) {
+        currentIndex = saved;
+        render(currentIndex, false);
+      } else {
+        currentIndex = pickRandom(-1);
+        saveQuest(currentIndex);
+        render(currentIndex, false);
+      }
+    }
+
+    function reroll() {
+      currentIndex = pickRandom(currentIndex);
+      saveQuest(currentIndex);
+      render(currentIndex, true);
+    }
+
+    init();
+  </script>
+
+</body>
+</html>
