@@ -91,17 +91,6 @@
       color: rgba(255,255,255,0.72);
       font-weight: 300;
     }
-
-    .card.animating {
-      animation: fadeSlide 0.4s ease;
-    }
-
-    @keyframes fadeSlide {
-      0%   { opacity: 1; transform: translateY(0); }
-      40%  { opacity: 0; transform: translateY(-10px); }
-      60%  { opacity: 0; transform: translateY(10px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
@@ -111,70 +100,70 @@
       <p class="tagline">Toastmasters &middot; Twoje zadanie na dzi&#347;</p>
     </header>
 
-    <div class="card" id="card">
+    <div class="card">
       <div class="card-label">Twoje zadanie</div>
-      <div class="quest-title" id="questTitle">&#321;adowanie&hellip;</div>
+      <div class="quest-title" id="questTitle">Ładowanie…</div>
       <div class="quest-desc"  id="questDesc"></div>
     </div>
   </div>
 
   <script>
     const QUESTS = [
-      { title: "Lodo&#322;amacz kuluarowy", desc: "Przywitaj si&#281; z przynajmniej jedn&#261; osob&#261;, kt&#243;rej jeszcze nie znasz lub znasz najmniej." },
-      { title: "&#321;&#261;cznik", desc: "Przedstaw sobie dwie osoby, kt&#243;re Twoim zdaniem powinny si&#281; pozna&#263;." },
-      { title: "Rekrut", desc: "Zapytaj go&#347;cia o jego wra&#380;enia i zaproponuj mu aftery lub kolejne spotkanie." },
-      { title: "Wsp&#243;lny mianownik", desc: "Znajd&#378; osob&#281;, kt&#243;ra ma to samo hobby co Ty (poza przemawianiem)." },
-      { title: "Wywiad", desc: "Dowiedz si&#281; od wybranej osoby, dlaczego zdecydowa&#322;a si&#281; do&#322;&#261;czy&#263; do Toastmasters." },
-      { title: "Miejscówka", desc: "Usi&#261;d&#378; obok osoby, obok kt&#243;rej jeszcze nigdy nie siedzia&#322;e&#347;." },
-      { title: "Detektyw mowy cia&#322;a", desc: "Daj komu&#347; po spotkaniu pozytywny feedback dotycz&#261;cy jego gestykulacji." },
-      { title: "Skupienie 100%", desc: "Przes&#322;uchaj ca&#322;e wyst&#261;pienie bez ani jednego spojrzenia na telefon czy zegarek." },
-      { title: "Cichy mentor", desc: "Napisz na kartce zwrotnej jedn&#261; rzecz, kt&#243;r&#261; dany m&#243;wca zrobi&#322; dzi&#347; lepiej ni&#380; ostatnio." },
-      { title: "Docenienie zaplecza", desc: "Podzi&#281;kuj osobie pe&#322;ni&#261;cej rol&#281; techniczn&#261; za jej wk&#322;ad." },
-      { title: "&#321;owca pere&#322;ek", desc: "Zanotuj trzy ciekawe zwroty ze sceny i postaraj si&#281; u&#380;y&#263; ich w rozmowie jutro." },
-      { title: "Wsparcie debiutanta", desc: "Znajd&#378; osob&#281;, kt&#243;ra mia&#322;a dzi&#347; sw&#243;j debiut i pogratuluj jej odwagi." },
-      { title: "Partyzan S&#322;owa Dnia", desc: "U&#380;yj „S&#322;owa Dnia” przynajmniej 3 razy w rozmowach prywatnych podczas przerwy." },
-      { title: "Mistrz pauzy", desc: "Podczas rozmowy zastosuj &#347;wiadom&#261;, 2-sekundow&#261; pauz&#281;, zanim odpowiesz na pytanie." },
-      { title: "Metaforyczny challenge", desc: "Opisz komu&#347; sw&#243;j dzie&#324;, u&#380;ywaj&#261;c przynajmniej jednej barwnej metafory." },
-      { title: "Stop wype&#322;niaczom", desc: "Nie u&#380;yj ani jednego „yyy” czy „eeee” podczas networkingowej rozmowy przy kawie." },
-      { title: "Aktywne s&#322;uchanie", desc: "Podczas rozmowy potakuj i utrzymuj kontakt wzrokowy, nie przerywaj&#261;c ani razu." },
-      { title: "Gor&#261;ce Pytania", desc: "Zg&#322;o&#347; si&#281; jako pierwszy do sesji Gor&#261;cych Pyta&#324;." },
-      { title: "Power Pose", desc: "Wykonaj „poz&#281; zwyci&#281;zcy” przez 30 sekund przed wej&#347;ciem na sal&#281;." },
-      { title: "Pytaj&#261;cy", desc: "Zadaj pytanie m&#243;wcy w sesji Q&A (je&#347;li taka jest przewidziana)." },
-      { title: "Ochotnik", desc: "Je&#347;li zwolni si&#281; jaka&#347; rola w ostatniej chwili – zaproponuj swoj&#261; pomoc." },
-      { title: "U&#347;miech", desc: "Utrzymuj kontakt wzrokowy i u&#347;miechaj si&#281; do ka&#380;dego, z kim mijasz si&#281; w drzwiach." },
-      { title: "Ekspert od trematrem", desc: "Popro&#347; do&#347;wiadczonego klubowicza o jego spos&#243;b na opanowanie tremy." },
-      { title: "Planer", desc: "Zadeklaruj Wiceprezesowi ds. Edukacji, kiedy wyg&#322;osisz swoj&#261; kolejn&#261; mow&#281;." },
-      { title: "Bibliotekarz", desc: "Pole&#263; komu&#347; jedn&#261; ksi&#261;&#380;k&#281; rozwojow&#261;, kt&#243;ra wp&#322;yn&#281;&#322;a na Twoj&#261; komunikacj&#281;." },
-      { title: "Analiza lidera", desc: "Zanotuj jeden trik Toastmastera Wieczoru, kt&#243;ry u&#322;atwi&#322; przej&#347;cie mi&#281;dzy punktami." },
-      { title: "Lustro", desc: "Podczas rozmowy spr&#243;buj subtelnie na&#347;ladowa&#263; mow&#281; cia&#322;a rozm&#243;wcy przez 1 minut&#281;." },
-      { title: "Entuzjasta", desc: "B&#261;d&#378; osob&#261;, kt&#243;ra najg&#322;o&#347;niej klaszcze po ka&#380;dym wyst&#261;pieniu." },
-      { title: "Pozytywna energia", desc: "Skomplementuj dwie osoby za co&#347;, co nie jest zwi&#261;zane z ich mow&#261;." },
-      { title: "Last man standing", desc: "Zostań do samego ko&#324;ca, &#380;eby pom&#243;c posprz&#261;ta&#263; sal&#281;." },
-      { title: "Wysoka pi&#261;tka", desc: "Przybij pi&#261;tk&#281; osobie, kt&#243;ra w&#322;a&#347;nie zesz&#322;a ze sceny." },
-      { title: "Stra&#380;nik wody", desc: "Upewnij si&#281;, &#380;e m&#243;wca ma dost&#281;p do wody przed swoim wyst&#261;pieniem." },
-      { title: "Konstruktywny tip", desc: "Po spotkaniu przeka&#380; jednej osobie jedn&#261; rzecz, kt&#243;r&#261; mo&#380;e poprawi&#263; w swojej mowie." },
-      { title: "Pytanie o progres", desc: "Zapytaj kogo&#347;, nad jakim projektem w Pathways teraz pracuje." },
-      { title: "Fan humoru", desc: "Je&#347;li kto&#347; powie &#380;art, zareaguj na niego entuzjastycznie." },
-      { title: "Social Media Ninja", desc: "Zr&#243;b zdj&#281;cie (za zgod&#261;) i wspomnij o klubie w swoich relacjach." },
-      { title: "Pomocna d&#322;o&#324;", desc: "Pom&#243;&#380; Sier&#380;antowi w przygotowaniu lub sprz&#261;tni&#281;ciu sali." },
-      { title: "Feedback Ewaluatora", desc: "Powiedz osobie oceniaj&#261;cej mow&#281;, co najbardziej podoba&#322;o Ci si&#281; w jej ewaluacji." },
-      { title: "Historyk klubu", desc: "Zapytaj jednego z najstarszych sta&#380;em cz&#322;onk&#243;w o histori&#281; Waszego klubu." },
-      { title: "Inspiracja", desc: "Podziel si&#281; z kim&#347; w przerwie jednym cytatem, kt&#243;ry Ci&#281; ostatnio zainspirowa&#322;." },
-      { title: "Uwa&#380;ny obserwator", desc: "Zauwa&#380; jeden ciekawy szczeg&#243;&#322; w stroju innej osoby i skomplementuj go." },
-      { title: "Cichy kibic", desc: "Podczas mowy potakuj g&#322;ow&#261;, daj&#261;c m&#243;wcy sygna&#322;, &#380;e go aktywnie s&#322;uchasz." },
-      { title: "&#321;owca talent&#243;w", desc: "Zapytaj go&#347;cia, czym zajmuje si&#281; zawodowo i jak to si&#281; &#322;&#261;czy z komunikacj&#261;." },
-      { title: "Mistrz logistyki", desc: "Zaproponuj pomoc przy obs&#322;udze stopera lub dzwonka, je&#347;li zajdzie potrzeba." },
-      { title: "Poszukiwacz opinii", desc: "Zapytaj osob&#281; obok, co najbardziej podoba&#322;o jej si&#281; w pierwszej cz&#281;&#347;ci spotkania." },
-      { title: "Ambasador u&#347;miechu", desc: "Przez ca&#322;&#261; przerw&#281; staraj si&#281; mie&#263; u&#347;miech na twarzy." },
-      { title: "S&#322;uchacz idealny", desc: "Nie przerywaj nikomu wypowiedzi, nawet je&#347;li bardzo chcesz co&#347; doda&#263;." },
-      { title: "Recenzent agendy", desc: "Pochwal Toastmastera Wieczoru za dob&#243;r tematu lub prowadzenie." },
-      { title: "Kolekcjoner imion", desc: "Zapami&#281;taj imiona przynajmniej 5 os&#243;b, kt&#243;rych wcze&#347;niej nie zna&#322;e&#347;." },
-      { title: "Wsparcie techniczne", desc: "Zapytaj osob&#281; odpowiedzialn&#261; za nagrania, czy nie potrzebuje pomocy." },
-      { title: "Innowator", desc: "Zaproponuj jedn&#261; zmian&#281;, kt&#243;ra mog&#322;aby uatrakcyjni&#263; spotkania klubu." },
-      { title: "Partner do mowy", desc: "Zaproponuj komu&#347;, &#380;e przes&#322;uchasz jego mow&#281; przed nast&#281;pnym spotkaniem." },
-      { title: "Analiza tezy", desc: "Spr&#243;buj wy&#322;apa&#263; g&#322;&#243;wn&#261; my&#347;l (tez&#281;) w ka&#380;dej wyg&#322;oszonej dzi&#347; mowie." },
-      { title: "Dobry s&#261;siad", desc: "Zapytaj osob&#281; siedz&#261;c&#261; obok, jak mija jej tydzie&#324; (poza Toastmasters)." },
-      { title: "Fina&#322;owy u&#347;cisk", desc: "Po zako&#324;czeniu oficjalnej cz&#281;&#347;ci, podzi&#281;kuj organizatorom za energi&#281;." }
+      { title: "Lodołamacz kuluarowy", desc: "Przywitaj się z przynajmniej jedną osobą, której jeszcze nie znasz lub znasz najmniej." },
+      { title: "Łącznik", desc: "Przedstaw sobie dwie osoby, które Twoim zdaniem powinny się poznać." },
+      { title: "Rekrut", desc: "Zapytaj gościa o jego wrażenia i zaproś go na aftery lub kolejne spotkanie." },
+      { title: "Wspólny mianownik", desc: "Znajdź osobę, która ma to samo hobby co Ty (poza przemawianiem)." },
+      { title: "Wywiad", desc: "Dowiedz się od wybranej osoby, dlaczego zdecydowała się dołączyć do Toastmasters." },
+      { title: "Miejscówka", desc: "Usiądź obok osoby, obok której jeszcze nigdy nie siedziałeś." },
+      { title: "Detektyw mowy ciała", desc: "Daj komuś po spotkaniu pozytywny feedback dotyczący jego gestykulacji." },
+      { title: "Skupienie 100%", desc: "Przesłuchaj całe wystąpienie bez ani jednego spojrzenia na telefon czy zegarek." },
+      { title: "Cichy mentor", desc: "Napisz na kartce zwrotnej jedną rzecz, którą dany mówca zrobił dziś lepiej niż ostatnio." },
+      { title: "Docenienie zaplecza", desc: "Podziękuj osobie pełniącej rolę techniczną za jej wkład." },
+      { title: "Łowca perełek", desc: "Zanotuj trzy ciekawe zwroty ze sceny i postaraj się użyć ich w rozmowie jutro." },
+      { title: "Wsparcie debiutanta", desc: "Znajdź osobę, która miała dziś swój debiut i pogratuluj jej odwagi." },
+      { title: "Partyzan Słowa Dnia", desc: "Użyj „Słowa Dnia” przynajmniej 3 razy w rozmowach prywatnych podczas przerwy." },
+      { title: "Mistrz pauzy", desc: "Podczas rozmowy zastosuj świadomą, 2-sekundową pauzę, zanim odpowiesz na pytanie." },
+      { title: "Metaforyczny challenge", desc: "Opisz komuś swój dzień, używając przynajmniej jednej barwnej metafory." },
+      { title: "Stop wypełniaczom", desc: "Nie użyj ani jednego „yyy” czy „eeee” podczas networkingowej rozmowy przy kawie." },
+      { title: "Aktywne słuchanie", desc: "Podczas rozmowy potakuj i utrzymuj kontakt wzrokowy, nie przerywając ani razu." },
+      { title: "Gorące Pytania", desc: "Zgłoś się jako pierwszy do sesji Gorących Pytań." },
+      { title: "Power Pose", desc: "Wykonaj „pozę zwycięzcy” przez 30 sekund przed wejściem na salę." },
+      { title: "Pytający", desc: "Zadaj pytanie mówcy w sesji Q&A (jeśli taka jest przewidziana)." },
+      { title: "Ochotnik", desc: "Jeśli zwolni się jakaś rola w ostatniej chwili – zaproponuj swoją pomoc." },
+      { title: "Uśmiech", desc: "Utrzymuj kontakt wzrokowy i uśmiechaj się do każdego, z kim mijasz się w drzwiach." },
+      { title: "Ekspert od tremy", desc: "Poproś doświadczonego klubowicza o jego sposób na opanowanie tremy." },
+      { title: "Planer", desc: "Zadeklaruj Wiceprezesowi ds. Edukacji, kiedy wygłosisz swoją kolejną mowę." },
+      { title: "Bibliotekarz", desc: "Poleć komuś jedną książkę rozwojową, która wpłynęła na Twoją komunikację." },
+      { title: "Analiza lidera", desc: "Zanotuj jeden trik Toastmastera Wieczoru, który ułatwił przejście między punktami." },
+      { title: "Lustro", desc: "Podczas rozmowy spróbuj subtelnie naśladować mowę ciała rozmówcy przez 1 minutę." },
+      { title: "Entuzjasta", desc: "Bądź osobą, która najgłośniej klaszcze po każdym wystąpieniu." },
+      { title: "Pozytywna energia", desc: "Skomplementuj dwie osoby za coś, co nie jest związane z ich mową." },
+      { title: "Last man standing", desc: "Zostań do samego końca, żeby pomóc posprzątać salę." },
+      { title: "Wysoka piątka", desc: "Przybij piątkę osobie, która właśnie zeszła ze sceny." },
+      { title: "Strażnik wody", desc: "Upewnij się, że mówca ma dostęp do wody przed swoim wystąpieniem." },
+      { title: "Konstruktywny tip", desc: "Po spotkaniu przekaż jednej osobie jedną rzecz, którą może poprawić w swojej mowie." },
+      { title: "Pytanie o progres", desc: "Zapytaj kogoś, nad jakim projektem w Pathways teraz pracuje." },
+      { title: "Fan humoru", desc: "Jeśli ktoś powie żart, zareaguj na niego entuzjastycznie." },
+      { title: "Social Media Ninja", desc: "Zrób zdjęcie (za zgodą) i wspomnij o klubie w swoich relacjach." },
+      { title: "Pomocna dłoń", desc: "Pomóż Sierżantowi w przygotowaniu lub sprzątnięciu sali." },
+      { title: "Feedback Ewaluatora", desc: "Powiedz osobie oceniającej mowę, co najbardziej podobało Ci się w jej ewaluacji." },
+      { title: "Historyk klubu", desc: "Zapytaj jednego z najstarszych stażem członków o historię Waszego klubu." },
+      { title: "Inspiracja", desc: "Podziel się z kimś w przerwie jednym cytatem, który Cię ostatnio zainspirował." },
+      { title: "Uważny obserwator", desc: "Zauważ jeden ciekawy szczegół w stroju innej osoby i skomplementuj go." },
+      { title: "Cichy kibic", desc: "Podczas mowy potakuj głową, dając mówcy sygnał, że go aktywnie słuchasz." },
+      { title: "Łowca talentów", desc: "Zapytaj gościa, czym zajmuje się zawodowo i jak to się łączy z komunikacją." },
+      { title: "Mistrz logistyki", desc: "Zaproponuj pomoc przy obsłudze stopera lub dzwonka, jeśli zajdzie potrzeba." },
+      { title: "Poszukiwacz opinii", desc: "Zapytaj osobę obok, co najbardziej podobało jej się w pierwszej części spotkania." },
+      { title: "Ambasador uśmiechu", desc: "Przez całą przerwę staraj się mieć uśmiech na twarzy." },
+      { title: "Słuchacz idealny", desc: "Nie przerywaj nikomu wypowiedzi, nawet jeśli bardzo chcesz coś dodać." },
+      { title: "Recenzent agendy", desc: "Pochwal Toastmastera Wieczoru za dobór tematu lub prowadzenie." },
+      { title: "Kolekcjoner imion", desc: "Zapamiętaj imiona przynajmniej 5 osób, których wcześniej nie znałeś." },
+      { title: "Wsparcie techniczne", desc: "Zapytaj osobę odpowiedzialną za nagrania, czy nie potrzebuje pomocy." },
+      { title: "Innowator", desc: "Zaproponuj jedną zmianę, która mogłaby uatrakcyjnić spotkania klubu." },
+      { title: "Partner do mowy", desc: "Zaproponuj komuś, że przesłuchasz jego mowę przed następnym spotkaniem." },
+      { title: "Analiza tezy", desc: "Spróbuj wyłapać główną myśl (tezę) w każdej wygłoszonej dziś mowie." },
+      { title: "Dobry sąsiad", desc: "Zapytaj osobę siedzącą obok, jak mija jej tydzień (poza Toastmasters)." },
+      { title: "Finałowy uścisk", desc: "Po zakończeniu oficjalnej części, podziękuj organizatorom za energię." }
     ];
 
     const KEY = 'sqtm_quest';
@@ -199,19 +188,15 @@
       localStorage.setItem(KEY, JSON.stringify({ date: todayStr(), index }));
     }
 
-    function render(index) {
-      const q = QUESTS[index];
-      document.getElementById('questTitle').textContent = q.title;
-      document.getElementById('questDesc').textContent  = q.desc;
-    }
-
     function init() {
       let index = load();
       if (index === null) {
         index = Math.floor(Math.random() * QUESTS.length);
         save(index);
       }
-      render(index);
+      const q = QUESTS[index];
+      document.getElementById('questTitle').textContent = q.title;
+      document.getElementById('questDesc').textContent  = q.desc;
     }
 
     init();
